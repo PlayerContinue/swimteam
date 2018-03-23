@@ -16,9 +16,10 @@ class CreateFormRegistrationsTable extends Migration
         Schema::create('form_registrations', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->string('name');
-            $table->string('address');
-            
+            $table->string('field');
+            $table->string('value');
+            $table->string('form_list_key',"32");
+            $table->foreign('form_list_key')->references('form_key')->on('forms_list')->onDelete('cascade');//Foreign Key connection
         });
     }
 
