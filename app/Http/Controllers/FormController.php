@@ -2,18 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 
-class FormController extends Controller
-{
+class FormController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index($key, $start_date = "", $end_date = "") {
+        //Select data from the source
+        $results = DB::table('form_registrations')->
+                join('form_list_keys', function($join) {
+                    $join->on(
+                            [
+                                ['form_list_keys.key', '=', 'form_registrations.field'],
+                                ["form_list_keys.form_list_key", '=', 'form_registrations.form_list_key']
+                    ]);
+                })->
+                SELECT("form_list_keys.form_list_key", 'form_registrations.field', 'form_registrations.value','form_registrations.created_at')
+                ->WHERE('form_registrations.form_list_key', '=', $key)->orderBy('form_registrations.created_at')
+                ->get();
+        return $results;
     }
 
     /**
@@ -21,8 +33,7 @@ class FormController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, string $formType)
-    {
+    public function create(Request $request, string $formType) {
         
     }
 
@@ -32,8 +43,7 @@ class FormController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, string $formType)
-    {
+    public function store(Request $request, string $formType) {
         return \App\FormRegistration::store($request);
     }
 
@@ -43,8 +53,7 @@ class FormController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -54,9 +63,8 @@ class FormController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id) {
+     
     }
 
     /**
@@ -66,8 +74,7 @@ class FormController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -77,8 +84,8 @@ class FormController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
+
 }

@@ -10,7 +10,7 @@ class formsList extends Model
      * Get the fields this form owns
      */
     public function getFields(){
-       return $this->hasMany('App\FormRegistration','form_list_key','form_key');
+       return $this->hasMany('App\FormRegistration','form_key','form_key');
     }
     
      protected $table = 'forms_list';

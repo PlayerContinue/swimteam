@@ -10,22 +10,29 @@ class FormRegistration extends Model {
     //
     public static function store(Request $request) {
         
-        $data = $request->all();
+        $data = $request->all(); //Select all incoming data 
         if (is_array($data) && !is_null($data["data"]) && !is_null($data["data"]["key"])) {
             try{
-            $this->SaveData($data);
+            FormRegistration::SaveData($data);
             }catch(Exception $ex){
-                
+                return "fail";
             }
         } else {
-            return "Provided JSON is not an array, values must be provided as an array in the form {\"data\":{\"form\":{\"field\":\"value\"}}";
+            return "Provided JSON is not an array, values must be provided as an array in the form {\"data\":{\"form\":{\"field\":\"value\"},\"key\":\"key_value\"}";
         }
     }
     
-    private function SaveData(Array $data){
+    /**
+     * Go through data array and insert into database if has a key
+     * @param array $data - The array data in form {\"data\":{\"form\":{\"field\":\"value\"},\"key\":\"key_value\"}
+     * @return string - An error
+     */
+    private static function SaveData(Array $data){
         $data_array = array();
             $data_key = $data["data"]["key"];
-        
+               $forms = formsList::where('form_key', '=', $data_key)->first();
+            if(!empty($data_key) && isset($forms)){
+           
             foreach ($data["data"]["form"] as $key => $value) {
                 
                 if (!is_null($key) && !is_null($value)) {
@@ -35,8 +42,12 @@ class FormRegistration extends Model {
                     array_push($data_array,$form);
                 }
             }
-            $forms = formsList::where('form_key', '=', $data_key)->firstOrFail();
-            $forms->getFields()->saveMany($data_array);
+               
+                $forms->getFields()->saveMany($data_array);
+                return "";
+            }else{
+                return "No key or bad key was provided. Values must be provided as an array in the form {\"data\":{\"form\":{\"field\":\"value\"},\"key\":\"key_value\"}";
+            }
         
     }
     
@@ -45,9 +56,9 @@ class FormRegistration extends Model {
      * @return type
      */
     public function formsList(){
-        return $this->belongsTo('App\formsList','form_key','form_list_key');
+        return $this->belongsTo('App\formsList','form_key','form_key');
     }
 
-    protected $table = 'form_registrations';
+    protected $table = 'form_data';
 
 }

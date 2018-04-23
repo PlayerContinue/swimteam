@@ -27,6 +27,8 @@ Route::middleware('cors')->get('/events',function (Request $request){
 
 Route::middleware('cors')->post('/forms/{form}','FormController@store');
 
+Route::middleware('cors')->get('/forms/data/{form_key}','FormController@index');
+
 Route::middleware('cors')->post('/forms','FormController@store');
 
 Route::middleware('cors')->get('/registration', function(Request $request){

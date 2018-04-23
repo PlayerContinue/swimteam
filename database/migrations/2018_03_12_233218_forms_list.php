@@ -12,12 +12,34 @@ class FormsList extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('forms_list', function (Blueprint $table) {
+        Schema::create('forms', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->string("name",300);
             $table->string("form_key","32")->unique();
-            
+        });
+        Schema::create('form_keys',function (Blueprint $table){
+            $table->increments('id');
+            $table->timestamps();
+            $table->string("key",50);//name of a form value input
+            $table->string('form_key',"32");
+            $table->foreign('form_list_key')->references('form_key')->on('forms')->onDelete('cascade');//Foreign Key connection
+        });
+        Schema::create('form_combine',function(Blueprint $table){
+            $table->increments('id');
+            $table->timestamps();
+            $table->string('form_key',"32");
+            $table->foreign('form_list_key')->references('form_key')->on('forms')->onDelete('cascade');//Foreign Key connection
+        });
+         Schema::create('form_data', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+            $table->string('field');
+            $table->string('value');
+            $table->string('form_key',"32");
+            $table->integer('form_data_id');
+            $table->foreign('form_key')->references('form_key')->on('forms')->onDelete('cascade');//Foreign Key connection
+            $table->foreign('form_data_id')->references('id')->on('form_data')->onDelete('cascade');//Foreign Key for Results
         });
     }
 
@@ -28,6 +50,9 @@ class FormsList extends Migration {
      */
     public function down() {
         Schema::dropIfExists('forms_list');
+        Schema::dropIfExists('form_list_keys');
+        Schema::dropIfExists('form_results');
+        Schema::dropIfExists('form_registrations');
     }
 
 }
