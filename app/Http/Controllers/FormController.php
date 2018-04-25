@@ -14,16 +14,16 @@ class FormController extends Controller {
      */
     public function index($key, $start_date = "", $end_date = "") {
         //Select data from the source
-        $results = DB::table('form_registrations')->
-                join('form_list_keys', function($join) {
+        $results = DB::table('form_data')->
+                join('form_keys', function($join) {
                     $join->on(
                             [
-                                ['form_list_keys.key', '=', 'form_registrations.field'],
-                                ["form_list_keys.form_list_key", '=', 'form_registrations.form_list_key']
+                                ['form_keys.key', '=', 'form_data.field'],
+                                ["form_keys.form_key", '=', 'form_data.form_key']
                     ]);
                 })->
-                SELECT("form_list_keys.form_list_key", 'form_registrations.field', 'form_registrations.value','form_registrations.created_at')
-                ->WHERE('form_registrations.form_list_key', '=', $key)->orderBy('form_registrations.created_at')
+                SELECT("form_keys.form_key", 'form_data.field', 'form_data.value','form_data.created_at')
+                ->WHERE('form_data.form_key', '=', $key)->orderBy('form_data.created_at')
                 ->get();
         return $results;
     }

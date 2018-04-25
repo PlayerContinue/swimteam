@@ -23,13 +23,13 @@ class FormsList extends Migration {
             $table->timestamps();
             $table->string("key",50);//name of a form value input
             $table->string('form_key',"32");
-            $table->foreign('form_list_key')->references('form_key')->on('forms')->onDelete('cascade');//Foreign Key connection
+            $table->foreign('form_key')->references('form_key')->on('forms')->onDelete('cascade');//Foreign Key connection
         });
         Schema::create('form_combine',function(Blueprint $table){
             $table->increments('id');
             $table->timestamps();
             $table->string('form_key',"32");
-            $table->foreign('form_list_key')->references('form_key')->on('forms')->onDelete('cascade');//Foreign Key connection
+            $table->foreign('form_key')->references('form_key')->on('forms')->onDelete('cascade');//Foreign Key connection
         });
          Schema::create('form_data', function (Blueprint $table) {
             $table->increments('id');
@@ -39,7 +39,7 @@ class FormsList extends Migration {
             $table->string('form_key',"32");
             $table->integer('form_data_id');
             $table->foreign('form_key')->references('form_key')->on('forms')->onDelete('cascade');//Foreign Key connection
-            $table->foreign('form_data_id')->references('id')->on('form_data')->onDelete('cascade');//Foreign Key for Results
+            //$table->foreign('form_data_id')->references('id')->on('form_data')->onDelete('cascade');//Foreign Key for Results
         });
     }
 

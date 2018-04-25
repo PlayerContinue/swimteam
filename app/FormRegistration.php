@@ -36,13 +36,18 @@ class FormRegistration extends Model {
             foreach ($data["data"]["form"] as $key => $value) {
                 
                 if (!is_null($key) && !is_null($value)) {
+                    //TODO Add method to make sure data is safe
                     $form = new FormRegistration;
                     $form->field = $key;
                     $form->value = $value;
+                    $form->form_data_id = 1;
                     array_push($data_array,$form);
                 }
             }
                
+            //TODO add update to form_combine value
+            
+            
                 $forms->getFields()->saveMany($data_array);
                 return "";
             }else{

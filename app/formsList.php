@@ -13,5 +13,5 @@ class formsList extends Model
        return $this->hasMany('App\FormRegistration','form_key','form_key');
     }
     
-     protected $table = 'forms_list';
+     protected $table = 'forms';
 }
