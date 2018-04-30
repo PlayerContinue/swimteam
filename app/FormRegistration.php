@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class FormRegistration extends Model {
-
+    const KEY = "key";
     //
     public static function store(Request $request) {
         
@@ -29,14 +29,14 @@ class FormRegistration extends Model {
      */
     private static function SaveData(Array $data){
         $data_array = array();
-            $data_key = $data["form"]["key"];
+            $data_key = $data["form"][FormRegistration::KEY];
                $forms = formsList::where('form_key', '=', $data_key)->first();
             if(!empty($data_key) && isset($forms)){
             
             //Grab each key for storage
             foreach ($data["form"] as $key => $value) {
                 
-                if (!is_null($key) && !is_null($value)) {
+                if (FormRegistration::KEY !== $key && !is_null($key) && !is_null($value)) {
                     //TODO Add method to make sure data is safe
                     $form = new FormRegistration;
                     $form->field = $key;
