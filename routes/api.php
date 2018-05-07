@@ -21,9 +21,10 @@ Route::get('/jobs', function (Request $request) {
     //return json_encode(App\formsList::where('form_key',"=",'S76uQyhQ3jmDBhlpZg1A4aaNojOT1tyI')->firstOrFail()->getFields()->get());
 });
 
-Route::middleware('cors')->get('/events',function (Request $request){
-    return "";// json_encode(array(new EventsObject(new EventDataObject(1,"2017-06-08T01:47:18.439Z","2017-06-08T01:47:18.439Z","","test","test"))));    
-});
+
+//TODO add middleware checking for key
+Route::middleware('cors')->get('/events/{calendar}','CalendarEventController@index');// json_encode(array(new EventsObject(new EventDataObject(1,"2017-06-08T01:47:18.439Z","2017-06-08T01:47:18.439Z","","test","test"))));    
+
 
 Route::middleware('cors')->post('/forms/{form}','FormController@store');
 
