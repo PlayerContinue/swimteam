@@ -16,7 +16,7 @@ class CalendarEventController extends Controller
     //TODO add middleware checking for key
     public function index()
     {
-        return calendar_event::all();
+        return calendar_event::all(array('title','description','color','location','startDate as start','endDate as end'));
     }
 
     /**
