@@ -9,7 +9,7 @@ class FormRegistration extends Model {
     const KEY = "key";
     //
     public static function store(Request $request) {
-        
+        //TODO confirm request to well-formed. 
         $data = $request->all(); //Select all incoming data 
         if (is_array($data) && !is_null($data["data"])) {
             try{
@@ -29,6 +29,7 @@ class FormRegistration extends Model {
      */
     private static function SaveData(Array $data){
         $data_array = array();
+        
             $data_key = $data["form"][FormRegistration::KEY];
                $forms = formsList::where('form_key', '=', $data_key)->first();
             if(!empty($data_key) && isset($forms)){
