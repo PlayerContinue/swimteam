@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStoredProceduresForForms1 extends Migration
+class UpdateStoredProcedure extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateStoredProceduresForForms1 extends Migration
      */
     public function up()
     {
-        //TODO update to NVARCHAR line DECLARE field,field_value,input_values VARCHAR(65535);
-        DB::unprepared('DROP PROCEDURE IF EXISTS insert_data_into_temporary_form_table;'
+         DB::unprepared('DROP PROCEDURE IF EXISTS insert_data_into_temporary_form_table;'
                 . "CREATE DEFINER=`root`@`%` PROCEDURE `insert_data_into_temporary_form_table`(IN table__name VARCHAR(500),IN form_key_value VARCHAR(500), IN list_of_fields VARCHAR(65535))
 BEGIN
-DECLARE field,field_value,input_values VARCHAR(65535);
+DECLARE field VARCHAR(65535);
+DECLARE field_value,input_values MediumText;
 DECLARE form_data_id,previous_value INT(10) UNSIGNED;
 DECLARE created_at TIMESTAMP;
 DECLARE done INT DEFAULT FALSE;
@@ -58,8 +58,8 @@ DROP VIEW vw_form_submission;
 SELECT * FROM temp;
 CLOSE key_cursor;
 END");
-        
-        DB::unprepared('DROP PROCEDURE IF EXISTS create_temporary_form_table;'
+         
+          DB::unprepared('DROP PROCEDURE IF EXISTS create_temporary_form_table;'
                 . "CREATE DEFINER=`root`@`%` PROCEDURE `create_temporary_form_table`(IN form_key_value VARCHAR(33))
 BEGIN
 DECLARE a VARCHAR(65535);
@@ -83,7 +83,7 @@ read_loop: LOOP
         ELSE 
 			SET @list_of_fields = CONCAT(@list_of_fields,',`',a,'`'); 
         END IF;
-		SET @stmt = CONCAT('ALTER TABLE temp ADD ', a  , ' VARCHAR(500)');
+		SET @stmt = CONCAT('ALTER TABLE temp ADD ', a  , ' MEDIUMTEXT');
 		PREPARE statement FROM @stmt;
 		EXECUTE statement;
         DEALLOCATE prepare statement;
@@ -97,8 +97,7 @@ CALL insert_data_into_temporary_form_table('temp',form_key_value, @list_of_field
 CLOSE key_cursor;
 DROP TEMPORARY TABLE temp;
 END");
-        
-        
+         
     }
 
     /**

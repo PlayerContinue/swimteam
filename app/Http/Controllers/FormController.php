@@ -14,7 +14,7 @@ class FormController extends Controller {
      */
     public function index($key, $start_date = "", $end_date = "") {
         //Select data from the source
-        $results = DB::table('form_data')->
+        /*$results = DB::table('form_data')->
                 join('form_keys', function($join) {
                     $join->on(
                             [
@@ -24,7 +24,8 @@ class FormController extends Controller {
                 })->
                 SELECT("form_keys.form_key", 'form_data.field', 'form_data.value','form_data.created_at')
                 ->WHERE('form_data.form_key', '=', $key)->orderBy('form_data.created_at')
-                ->get();
+                ->get();*/
+        $results = DB::select("CALL create_temporary_form_table(?)",array($key));
         return $results;
     }
 
