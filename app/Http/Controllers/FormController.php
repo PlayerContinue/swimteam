@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use Illuminate\Http\Request;
+use App\Library\Services\KeyGenerator;
 
 class FormController extends Controller {
 
@@ -13,28 +14,19 @@ class FormController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index($key, $start_date = "", $end_date = "") {
-        //Select data from the source
-        /*$results = DB::table('form_data')->
-                join('form_keys', function($join) {
-                    $join->on(
-                            [
-                                ['form_keys.key', '=', 'form_data.field'],
-                                ["form_keys.form_key", '=', 'form_data.form_key']
-                    ]);
-                })->
-                SELECT("form_keys.form_key", 'form_data.field', 'form_data.value','form_data.created_at')
-                ->WHERE('form_data.form_key', '=', $key)->orderBy('form_data.created_at')
-                ->get();*/
+        //Add Caching of Results
         $results = DB::select("CALL create_temporary_form_table(?)",array($key));
         return $results;
     }
 
     /**
      * Show the form for creating a new resource.
-     *
+     * Creates a new form resource.
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, string $formType) {
+    public function create(Request $request, KeyGenerator $generator) {
+        //\App\formsList::createForm("test");
+        return $generator->generateRandomString(32);
         
     }
 

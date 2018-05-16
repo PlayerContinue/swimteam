@@ -12,6 +12,15 @@ class formsList extends Model
     public function getFields(){
        return $this->hasMany('App\form_submission_keys','form_id');
     }
+    /**
+     * Create a new form with a unique key and add it into the database. 
+     * @param string $form_name
+     * @return string -
+     */
+    public function createForm(string $form_name){
+        
+        
+    }
     
      protected $table = 'form';
 }
