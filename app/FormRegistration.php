@@ -42,12 +42,12 @@ class FormRegistration extends Model {
                     $form = new FormRegistration;
                     $form->field = $key;
                     $form->value = $value;
-                    $form->form_data_id = 1;
+                    //$form->form_data_id = $forms->;
                     array_push($data_array,$form);
                 }
             }
                
-            
+                $idtest = $forms->id;
                 //Save Key to form_submission_keys
                 $results = $forms->getFields()->save(new form_submission_keys());
                 //Save Data to form_data

@@ -15,7 +15,7 @@ class FormController extends Controller {
      */
     public function index($key, $start_date = "", $end_date = "") {
         //Add Caching of Results
-        $results = DB::select("CALL create_temporary_form_table(?)",array($key));
+        $results = DB::select("CALL create_temporary_form_table(?)", array($key));
         return $results;
     }
 
@@ -24,10 +24,14 @@ class FormController extends Controller {
      * Creates a new form resource.
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, KeyGenerator $generator) {
-        //\App\formsList::createForm("test");
-        return $generator->generateRandomString(32);
-        
+    public function create(Request $request, KeyGenerator $key_generator) {
+        //Create the Form 
+        $data = $request->all();
+        if (is_array($data) && !is_null($data) && !is_null($data["data"])) {
+            $form = \App\formsList::createForm($data["data"]["name"], $key_generator);
+            \App\form_key::addKeys($form, $data["data"]["key_list"]);
+        }
+        return "";
     }
 
     /**
@@ -57,7 +61,7 @@ class FormController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-     
+        
     }
 
     /**
