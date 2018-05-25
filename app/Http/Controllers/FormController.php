@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use Illuminate\Http\Request;
 use App\Library\Services\KeyGenerator;
+use \App\Library\Response\JsonRequestResponse;
 
 class FormController extends Controller {
 
@@ -16,7 +17,7 @@ class FormController extends Controller {
     public function index($key, $start_date = "", $end_date = "") {
         //Add Caching of Results
         $results = DB::select("CALL create_temporary_form_table(?)", array($key));
-        return $results;
+        return json_encode(new JsonRequestResponse(true,array("data"=>$results)));
     }
 
     /**
@@ -27,15 +28,18 @@ class FormController extends Controller {
     public function create(Request $request, KeyGenerator $key_generator) {
         //Create the Form 
         $data = $request->all();
-        if (is_array($data) && !is_null($data) && !is_null($data["data"])) {
+        if (is_array($data) && !is_null($data) && !is_null($data["data"]) && !is_null($data["data"]["name"])) {
+            //Create the form and key if the data is an array
             $form = \App\formsList::createForm($data["data"]["name"], $key_generator);
             \App\form_key::addKeys($form, $data["data"]["key_list"]);
+        }else {
+            
         }
-        return "";
+        return json_encode(new JsonRequestResponse(true,array("key"=>$form->form_key)));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new form entry into the database
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
