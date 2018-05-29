@@ -16,7 +16,7 @@ class FormController extends Controller {
      */
     public function index($key, $start_date = "", $end_date = "") {
         //Add Caching of Results
-        $results = DB::select("CALL create_temporary_form_table(?)", array($key));
+        $results = DB::select("CALL create_temporary_form_table(?,DATE(?),DATE(?))", array($key,'2018-01-01','2018-12-12'));
         return json_encode(new JsonRequestResponse(true,array("data"=>$results)));
     }
 
