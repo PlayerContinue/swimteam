@@ -1,7 +1,7 @@
 <?php
 
-namespace App;
 
+namespace APP\Library\Objects;
 class EventsObject {
     public $data;
     
@@ -33,8 +33,7 @@ class EventDataObject {
         $this->startDate = $newStartDate;
         $this->endDate = $newEndDate;
         $this->location = $newLocation;
-        $this->title = $newTitle;
-        
+        $this->title = $newTitle;   
     }
     
     

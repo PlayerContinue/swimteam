@@ -6,7 +6,6 @@ use DB;
 use Illuminate\Http\Request;
 use App\Library\Services\KeyGenerator;
 use \App\Library\Response\JsonRequestResponse;
-
 class FormController extends Controller {
 
     /**
@@ -14,10 +13,18 @@ class FormController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($key, $start_date = "", $end_date = "") {
+    public function index($key,Request $request) {
         //Add Caching of Results
-        $results = DB::select("CALL create_temporary_form_table(?,DATE(?),DATE(?))", array($key,'2018-01-01','2018-12-12'));
-        return json_encode(new JsonRequestResponse(true,array("data"=>$results)));
+        $errors = "";
+        $start_date = $request->query("start");
+        $end_date = $request->query("end");
+        if($start_date != '' && $end_date !='' && isset($start_date) && isset($end_date)){
+            $results = DB::select("CALL create_temporary_form_table(?,DATE(?),DATE(?))", array($key,'2018-01-01','2018-12-12'));
+        }else{
+            $results = DB::select("CALL create_temporary_form_table(?,DATE(?),DATE(?))", array($key,date('Y-m-d'),date('Y-m-d')));
+            $errors .= "No Dates provided. Please provide date in query as start and end";
+        }
+        return json_encode(new JsonRequestResponse(true,array("data"=>$results),$errors));
     }
 
     /**
@@ -59,7 +66,7 @@ class FormController extends Controller {
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Edit the forms keys
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

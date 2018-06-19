@@ -25,6 +25,19 @@ class form_key extends Model
         
     }
     
+    /**
+     * Replace the current list of keys with a new one
+     * @param type $formsList
+     * @param array $listOfKeys
+     */
+    public static function replaceKeys(number $formId, array $listOfKeys){
+        $forms = formsList::where('form_key','=',$formId)->first();
+        
+        if(isset($forms)){
+            
+        }
+    }
+    
      public function formsList(){
         return $this->belongsTo('App\formsList','id','form_id');
     }
