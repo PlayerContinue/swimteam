@@ -1,5 +1,6 @@
 <?php
-
+use Illuminate\Http\Request;
+use Http\Controllers\FormController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +16,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/formdata/{formkey}',"FormController@ShowResults")->middleware('auth');

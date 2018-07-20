@@ -25,17 +25,19 @@ Route::get('/jobs', function (Request $request) {
 //TODO add middleware checking for key
 Route::middleware('cors')->get('/events/{calendar}','CalendarEventController@index');// json_encode(array(new EventsObject(new EventDataObject(1,"2017-06-08T01:47:18.439Z","2017-06-08T01:47:18.439Z","","test","test"))));    
 
-Route::middleware('cors')->post('/forms/create','FormController@create');
+Route::middleware('cors')->post('/forms/create','FormController@create');//Create a new form
 
-Route::middleware('cors')->post('/forms/{form}','FormController@store');
+Route::middleware('cors')->post('/forms/{form}','FormController@store');//Post data to a form
 
-Route::middleware('cors')->get('/forms/data/{form_key}','FormController@index');
+Route::middleware('cors')->get('/forms/data/{form_key}','FormController@index')->middleware('auth:api');//Get data from a form
+
+Route::middleware('cors')->get('/forms/data/auth/{form_key}','FormController@index')->middleware('auth');;//Get data from a form
 
 Route::middleware('cors')->post('/forms','FormController@store');
 
 Route::middleware('cors')->post('/events/create','CalendarEventController@create');
 
-Route::middleware('cors')->get('/registration', function(Request $request){
+/*Route::middleware('cors')->get('/registration', function(Request $request){
 
     $row = 1;
      return json_encode(new wrapper(array(
@@ -333,13 +335,13 @@ Route::middleware('cors')->get('/registration', function(Request $request){
     )));
          
     
-});
+});*/
 
 Route::get('/login',function(Request $request) {
     return "";
 });
 
-class wrapper {
+/*class wrapper {
     public $data;
       public function __construct($exampleReg){
         $this->data = $exampleReg;
@@ -368,4 +370,4 @@ class exampleReg{
         $this->row = $g;
         $this->labelPostion = $h;
     }
-}
+}*/

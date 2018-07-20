@@ -4,14 +4,6 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Documents/NetBeansProjects/swimteam/routes/api.php</file>
-            <file>file:/D:/Documents/NetBeansProjects/swimteam/app/Http/Controllers/FormController.php</file>
-            <file>file:/D:/Documents/NetBeansProjects/swimteam/database/migrations/2018_05_14_154115_create_stored_procedures_for_forms_1.php</file>
-            <file>file:/D:/Documents/NetBeansProjects/swimteam/app/calendar_event.php</file>
-            <file>file:/D:/Documents/NetBeansProjects/swimteam/app/formsList.php</file>
-            <file>file:/D:/Documents/NetBeansProjects/swimteam/database/migrations/2018_05_23_174741_modify_insert_data_into_temporary_table.php</file>
-            <file>file:/D:/Documents/NetBeansProjects/swimteam/app/form_key.php</file>
-            <file>file:/D:/Documents/NetBeansProjects/swimteam/app/Http/Controllers/CalendarEventController.php</file>
-            <file>file:/D:/Documents/NetBeansProjects/swimteam/app/Library/Objects/events.php</file>
         </group>
     </open-files>
 </project-private>
