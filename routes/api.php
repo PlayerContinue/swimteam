@@ -29,7 +29,13 @@ Route::middleware('cors')->post('/forms/create','FormController@create');
 
 Route::middleware('cors')->post('/forms/{form}','FormController@store');
 
+<<<<<<< HEAD
 Route::middleware('cors')->get('/forms/data/{form_key}','FormController@index');
+=======
+Route::middleware('cors')->get('/forms/data/{form_key}','FormController@index')->middleware('auth:api');//Get data from a form
+
+Route::middleware('cors')->get('/forms/data/auth/{form_key}','FormController@index')->middleware('auth');;//Get data from a form
+>>>>>>> parent of 055cc14... Update
 
 Route::middleware('cors')->post('/forms','FormController@store');
 
@@ -37,11 +43,14 @@ Route::middleware('cors')->post('/events/create','CalendarEventController@create
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 Route::middleware('cors')->post('/login',"LoginController@login");
 
 Route::middleware('cors')->post('/logout',"LoginController@logout");
 
 
+=======
+>>>>>>> parent of 055cc14... Update
 =======
 >>>>>>> parent of 055cc14... Update
 /*Route::middleware('cors')->get('/registration', function(Request $request){
