@@ -4,21 +4,12 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-<<<<<<< HEAD
-<<<<<<< HEAD
-use Carbon\Carbon;
-class AuthServiceProvider extends ServiceProvider {
+use Laravel\Passport\Passport;
 
-=======
 
 class AuthServiceProvider extends ServiceProvider
 {
->>>>>>> parent of 055cc14... Update
-=======
 
-class AuthServiceProvider extends ServiceProvider
-{
->>>>>>> parent of 055cc14... Update
     /**
      * The policy mappings for the application.
      *
@@ -37,10 +28,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
         Passport::routes();
-<<<<<<< HEAD
         /*Passport::routes(function ($router) {
             $router->forAccessTokens();
             $router->forPersonalAccessTokens();
@@ -51,13 +40,5 @@ class AuthServiceProvider extends ServiceProvider
 
 Passport::refreshTokensExpireIn(Carbon::now()->addDays(10));
 */
-=======
->>>>>>> parent of 055cc14... Update
-=======
->>>>>>> parent of bba715c... Updated Multiple
-=======
-        Passport::routes();
->>>>>>> parent of 055cc14... Update
-        //
     }
 }
