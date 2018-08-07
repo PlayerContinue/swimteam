@@ -42,8 +42,8 @@ Route::middleware('cors')->post('/forms','FormController@store');
 Route::middleware('cors')->post('/events/create','CalendarEventController@create');
 
 
-Route::middleware('cors')->post('/login',"LoginController@login");
-
+Route::middleware('cors')->post('/login',"UserController@login");
+Route::middleware('cors')->post('/register',"UserController@register");
 Route::middleware('cors')->post('/logout',"LoginController@logout");
 
 
