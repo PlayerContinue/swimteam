@@ -59,4 +59,8 @@ return response()->json(['success'=>$success], $this-> successStatus);
         $user = Auth::user(); 
         return response()->json(['success' => $user], $this-> successStatus); 
     } 
+    
+    public function logout(){
+        Auth::logout();
+    }
 }
