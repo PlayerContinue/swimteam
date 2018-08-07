@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Documents/NetBeansProjects/swimteam/app/Providers/AuthServiceProvider.php</file>
             <file>file:/D:/Documents/NetBeansProjects/swimteam/routes/api.php</file>
+            <file>file:/D:/Documents/NetBeansProjects/swimteam/infrastructure/Auth/LoginRequest.php</file>
+            <file>file:/D:/Documents/NetBeansProjects/swimteam/app/Http/Controllers/LoginController.php</file>
+            <file>file:/D:/Documents/NetBeansProjects/swimteam/app/Library/Objects/events.php</file>
+            <file>file:/D:/Documents/NetBeansProjects/swimteam/infrastructure/Auth/LoginProxy.php</file>
         </group>
     </open-files>
 </project-private>

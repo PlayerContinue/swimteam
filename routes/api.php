@@ -37,11 +37,11 @@ Route::middleware('cors')->post('/forms','FormController@store');
 
 Route::middleware('cors')->post('/events/create','CalendarEventController@create');
 
-Route::middleware('cors')->post('/login',"LoginController@authenticate");
+Route::middleware('cors')->post('/login',"LoginController@login");
 
 Route::middleware('cors')->post('/logout',"LoginController@logout");
 
-$router->post('/login/refresh', 'LoginController@refresh');
+
 /*Route::middleware('cors')->get('/registration', function(Request $request){
 
     $row = 1;
