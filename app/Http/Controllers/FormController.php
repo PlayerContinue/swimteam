@@ -15,31 +15,16 @@ class FormController extends Controller {
      */
     public function index($key,Request $request) {
         //Add Caching of Results
-        
+        $errors = "";
         $start_date = $request->query("start");
         $end_date = $request->query("end");
-     
-     
-     
-        return json_encode(FormController::getFormData($key,$start_date,$end_date));
-    }
-    
-    private function getFormData($key,$start_date="",$end_date=""){
-        $errors = "";
-           if($start_date != '' && $end_date !='' && isset($start_date) && isset($end_date)){
+        if($start_date != '' && $end_date !='' && isset($start_date) && isset($end_date)){
             $results = DB::select("CALL create_temporary_form_table(?,DATE(?),DATE(?))", array($key,'2018-01-01','2018-12-12'));
         }else{
-            $results = [];
-            //$results = DB::select("CALL create_temporary_form_table(?,DATE(?),DATE(?))", array($key,date('Y-m-d'),date('Y-m-d')));
+            $results = DB::select("CALL create_temporary_form_table(?,DATE(?),DATE(?))", array($key,date('Y-m-d'),date('Y-m-d')));
             $errors .= "No Dates provided. Please provide date in query as start and end";
         }
-        return new JsonRequestResponse(true,array("data"=>$results),$errors);
-    }
-    
-    public function ShowResults($key){
-        $edit = FormController::getFormData($key,"2018-01-01","2018-12-12");
-        return view("formdata",["formdata" => json_encode($edit)]); 
-        
+        return json_encode(new JsonRequestResponse(true,array("data"=>$results),$errors));
     }
 
     /**
